@@ -16,6 +16,6 @@ public class Addresses extends Users {
     private String createdBy;
     @GeneratedValue
     @Id
-    private Integer id;
+    private Long id;
     private String note;
 }
