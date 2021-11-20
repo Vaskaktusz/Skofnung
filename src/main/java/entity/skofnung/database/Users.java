@@ -1,4 +1,4 @@
-package entity.skofnung.metadata;
+package entity.skofnung.database;
 
 import lombok.Data;
 
