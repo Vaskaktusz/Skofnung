@@ -1,12 +1,12 @@
 package repository;
 
-import entity.skofnung.database.Addresses;
+import entity.skofnung.database.Address;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface AddressRepository extends CrudRepository<Addresses, Long> {
-    List<Addresses> findByUsername(String username);
+public interface AddressRepository extends CrudRepository<Address, Long> {
+    List<Address> findByUsername(String username);
 }
