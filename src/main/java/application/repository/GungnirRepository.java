@@ -1,10 +1,10 @@
-package repository;
+package application.repository;
 
-import entity.gungnir.Gungnir;
-import entity.gungnir.metadata.Details;
-import entity.gungnir.metadata.Device;
-import entity.gungnir.metadata.System;
-import entity.skofnung.database.Address;
+import application.entity.gungnir.Gungnir;
+import application.entity.gungnir.metadata.Details;
+import application.entity.gungnir.metadata.Device;
+import application.entity.gungnir.metadata.System;
+import application.entity.skofnung.database.Address;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -25,7 +25,7 @@ public class GungnirRepository {
 
     private <K> Optional<K> bodyToMono(Address address, Class<K> clazz, String baseUrl) {
         WebClient webClient = WebClient.builder()
-                .baseUrl(address.getAddress().concat(baseUrl))
+                .baseUrl(address.getLocation().concat(baseUrl))
                 .defaultHeader("Authentication", Base64.getEncoder().encodeToString(String.join(":", address.getUsername(), address.getPassword()).getBytes(StandardCharsets.UTF_8)))
                 .build();
         return webClient.get().exchangeToMono(clientResponse -> clientResponse.bodyToMono(clazz)).blockOptional(Duration.ofMillis(30_000L));

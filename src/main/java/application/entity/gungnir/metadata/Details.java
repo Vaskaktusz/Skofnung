@@ -1,4 +1,4 @@
-package entity.gungnir.metadata;
+package application.entity.gungnir.metadata;
 
 import lombok.Data;
 
