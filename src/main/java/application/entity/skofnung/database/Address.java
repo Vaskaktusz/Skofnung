@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Address {
+public final class Address {
     @Id
     private String location;
     private String username;
