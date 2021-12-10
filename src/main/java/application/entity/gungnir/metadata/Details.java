@@ -3,6 +3,7 @@ package application.entity.gungnir.metadata;
 import lombok.Data;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public final class Details extends LinkedList<Details.Detail> {
 
@@ -11,6 +12,6 @@ public final class Details extends LinkedList<Details.Detail> {
         private String rule;
         private String endpoint;
         private String view_func;
-        private String methods;
+        private List<String> methods;
     }
 }

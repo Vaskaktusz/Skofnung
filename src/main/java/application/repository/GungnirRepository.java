@@ -5,29 +5,44 @@ import application.entity.gungnir.metadata.Details;
 import application.entity.gungnir.metadata.Device;
 import application.entity.gungnir.metadata.System;
 import application.entity.skofnung.database.Address;
+import org.springframework.http.*;
+import org.springframework.http.converter.AbstractGenericHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.util.Base64;
-import java.util.Optional;
+import java.util.Collections;
 
 @Repository
 public class GungnirRepository {
     public Gungnir findByAddress(Address address) {
         Gungnir gungnir = new Gungnir();
-        gungnir.setDetails(bodyToMono(address, Details.class, "/detail").orElse(new Details()));
-        gungnir.setDevice(bodyToMono(address, Device.class, "/device").orElse(new Device()));
-        gungnir.setSystem(bodyToMono(address, System.class, "/system").orElse(new System()));
+        gungnir.setDetails(bodyToMono(address, Details.class, "/api/detail"));
+        gungnir.setDevice(bodyToMono(address, Device.class, "/api/device"));
+        gungnir.setSystem(bodyToMono(address, System.class, "/api/system"));
         return gungnir;
     }
 
-    private <K> Optional<K> bodyToMono(Address address, Class<K> clazz, String baseUrl) {
-        WebClient webClient = WebClient.builder()
-                .baseUrl(address.getLocation().concat(baseUrl))
-                .defaultHeader("Authentication", Base64.getEncoder().encodeToString(String.join(":", address.getUsername(), address.getPassword()).getBytes(StandardCharsets.UTF_8)))
-                .build();
-        return webClient.get().exchangeToMono(clientResponse -> clientResponse.bodyToMono(clazz)).blockOptional(Duration.ofMillis(30_000L));
+    private <K> K bodyToMono(Address address, Class<K> clazz, String contextPath) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(httpMessageConverterToMono());
+        ResponseEntity<K> responseEntity = restTemplate.exchange(
+                address.getLocation().concat(contextPath),
+                HttpMethod.GET,
+                headersToMono(address.getUsername(), address.getPassword()),
+                clazz);
+        return responseEntity.getBody();
+    }
+
+    private HttpEntity<String> headersToMono(String username, String password) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBasicAuth(username, password);
+        return new HttpEntity<>("body", httpHeaders);
+    }
+
+    private AbstractGenericHttpMessageConverter<Object> httpMessageConverterToMono() {
+        AbstractGenericHttpMessageConverter<Object> httpMessageConverter = new MappingJackson2HttpMessageConverter();
+        httpMessageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
+        return httpMessageConverter;
     }
 }
