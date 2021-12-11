@@ -15,4 +15,9 @@ public final record GungnirController(GungnirRepository gungnirRepository) {
     public Gungnir findByAddress(@RequestBody @Valid Address address) {
         return gungnirRepository.findByAddress(address);
     }
+
+    @PostMapping("/health")
+    public void health(@RequestBody @Valid Address address) {
+        gungnirRepository.health(address);
+    }
 }

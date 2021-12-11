@@ -27,6 +27,10 @@ public class GungnirRepository {
         return gungnir;
     }
 
+    public void health(Address address) {
+        bodyToMono(address, Void.class, "/api/health");
+    }
+
     private <K> K bodyToMono(Address address, Class<K> clazz, String contextPath) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(httpMessageConverterToMono());
