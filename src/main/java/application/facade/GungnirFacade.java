@@ -8,13 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.AbstractGenericHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
-@Service
-public final class GungnirFacade {
+public class GungnirFacade {
     public <K> K bodyToMono(Address address, Class<K> clazz, String contextPath) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(httpMessageConverterToMono());
