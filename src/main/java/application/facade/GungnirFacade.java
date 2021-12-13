@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
-public class GungnirFacade {
+public abstract class GungnirFacade {
     public <K> K bodyToMono(Address address, Class<K> clazz, String contextPath) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(httpMessageConverterToMono());
