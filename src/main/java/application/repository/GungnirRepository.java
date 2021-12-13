@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class GungnirRepository extends GungnirFacade {
-
     public Gungnir findByAddress(Address address) {
         Gungnir gungnir = new Gungnir();
         gungnir.setDetails(bodyToMono(address, Details.class, "/api/detail"));
