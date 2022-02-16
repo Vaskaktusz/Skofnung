@@ -8,6 +8,10 @@ import org.springframework.util.StringUtils;
 
 @Repository
 public class BucketRepository extends BucketFacade {
+    public void delete(Bucket bucket) {
+        // TODO: FIXME!
+    }
+
     public Files findByBucket(Bucket bucket) {
         Files files = new Files();
         String contextPath = String.format("/api/bucket/%s", bucket.getFolder());
