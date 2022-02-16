@@ -1,4 +1,4 @@
 package application.facade;
 
-public abstract class BucketFacade {
+public abstract class BucketFacade extends GungnirFacade {
 }
