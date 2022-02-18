@@ -5,20 +5,25 @@ import application.entity.gungnir.metadata.Details;
 import application.entity.gungnir.metadata.Device;
 import application.entity.gungnir.metadata.System;
 import application.entity.skofnung.database.Address;
-import application.facade.GungnirFacade;
+import application.service.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class GungnirRepository extends GungnirFacade {
+public class GungnirRepository {
+    @Autowired
+    private RestTemplate restTemplate;
+
     public Gungnir findByAddress(Address address) {
         Gungnir gungnir = new Gungnir();
-        gungnir.setDetails(bodyToMono(address, Details.class, "/api/detail"));
-        gungnir.setDevice(bodyToMono(address, Device.class, "/api/device"));
-        gungnir.setSystem(bodyToMono(address, System.class, "/api/system"));
+        gungnir.setDetails(restTemplate.exchange(address, Details.class, HttpMethod.GET, "/api/detail"));
+        gungnir.setDevice(restTemplate.exchange(address, Device.class, HttpMethod.GET, "/api/device"));
+        gungnir.setSystem(restTemplate.exchange(address, System.class, HttpMethod.GET, "/api/system"));
         return gungnir;
     }
 
     public void health(Address address) {
-        bodyToMono(address, Void.class, "/api/health");
+        restTemplate.exchange(address, Void.class, HttpMethod.GET, "/api/health");
     }
 }
