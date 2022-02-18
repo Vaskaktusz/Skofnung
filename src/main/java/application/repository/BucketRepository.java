@@ -14,22 +14,25 @@ public class BucketRepository {
     private RestTemplate restTemplate;
 
     public void delete(Bucket bucket) {
-        // TODO: FIXME!
+        restTemplate.exchange(bucket, Void.class, HttpMethod.DELETE, contextPath(bucket.getFolder(), bucket.getFile()));
     }
 
     public Files findByBucket(Bucket bucket) {
         Files files = new Files();
-        String contextPath = String.format("/api/bucket/%s", bucket.getFolder());
         if (StringUtils.hasText(bucket.getFile())) {
-            contextPath = contextPath.concat(String.format("/%s", bucket.getFile()));
-            files.add(new Files.File(restTemplate.exchange(bucket, String.class, HttpMethod.GET, contextPath)));
+            files.add(new Files.File(restTemplate.exchange(bucket, String.class, HttpMethod.GET, contextPath(bucket.getFolder(), bucket.getFile()))));
         } else {
-            files = restTemplate.exchange(bucket, Files.class, HttpMethod.GET, contextPath);
+            files = restTemplate.exchange(bucket, Files.class, HttpMethod.GET, contextPath(bucket.getFolder()));
         }
         return files;
     }
 
     public void save(Bucket bucket) {
-        // TODO: FIXME!
+        // TODO: The actual file is not yet passed from the request to the call.
+        restTemplate.exchange(bucket, Void.class, HttpMethod.PUT, contextPath(bucket.getFolder()));
+    }
+
+    private String contextPath(String... args) {
+        return "/api/bucket".concat(String.join("/", args));
     }
 }
