@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public final class Bucket extends Address {
+public class Bucket extends Address {
     private String file;
     private String folder;
 }
