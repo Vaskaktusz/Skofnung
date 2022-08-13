@@ -13,7 +13,7 @@ public class Address extends Id {
     @NotBlank
     private String location;
     @NotBlank
-    private String password;
-    @NotBlank
     private String username;
+    @NotBlank
+    private String password;
 }
