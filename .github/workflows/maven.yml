@@ -1,4 +1,4 @@
-name: Test with Maven
+name: Maven
 on:
   push:
     branches: [ "master" ]
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       args:
-        description: Extra Arguments
+        description: Custom Arguments
         default: test
 jobs:
   build:
@@ -20,9 +20,9 @@ jobs:
         java-version: '16'
         distribution: 'temurin'
         cache: maven
-    - name: Test with Maven
+    - name: Maven (test)
       run: mvn test
       if: github.event.inputs.args == ''
-    - name: Test with Maven (Extra Arguments)
+    - name: Maven (Custom Arguments)
       run: mvn ${{ github.event.inputs.args }}
       if: github.event.inputs.args != ''
