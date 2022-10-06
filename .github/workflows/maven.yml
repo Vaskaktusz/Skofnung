@@ -8,7 +8,7 @@ on:
     inputs:
       args:
         description: Custom Arguments
-        default: test
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
