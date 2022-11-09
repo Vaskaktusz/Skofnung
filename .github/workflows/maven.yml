@@ -4,17 +4,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch:
-    inputs:
-      args:
-        description: Custom Arguments
-        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
@@ -24,9 +16,3 @@ jobs:
         cache: maven
     - name: Maven (test)
       run: mvn test
-      if: github.event.inputs.args == ''
-    - name: Maven (Custom Arguments)
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn ${{ github.event.inputs.args }}
-      if: github.event.inputs.args != ''
