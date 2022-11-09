@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 public final class RestTemplate {
 
     public String httpPost(Source source, String contextPath) {
-        HttpPost request = new HttpPost(source.getLocation().concat(contextPath));
+        HttpPost request = new HttpPost(String.format("http://%s%s", source.getLocation(), contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
         request.setHeader(HttpHeaders.CONTENT_TYPE, "text/html");
         try {
