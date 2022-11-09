@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.entity.skofnung.database.Address;
+import application.entity.skofnung.database.Source;
 import application.repository.DeployRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +15,7 @@ public class DeployController {
     private DeployRepository deployRepository;
 
     @PutMapping("/deploys/save")
-    public void save(@RequestBody @Valid Address address) {
-        deployRepository.save(address);
+    public void save(@RequestBody @Valid Source source) {
+        deployRepository.save(source);
     }
 }
