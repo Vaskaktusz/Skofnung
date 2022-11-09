@@ -23,5 +23,7 @@ jobs:
       run: mvn test
       if: github.event.inputs.args == ''
     - name: Maven (Custom Arguments)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: mvn ${{ github.event.inputs.args }}
       if: github.event.inputs.args != ''
