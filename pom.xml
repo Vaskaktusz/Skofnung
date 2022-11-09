@@ -62,7 +62,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Vaskaktusz/Gungnir</url>
+            <url>https://maven.pkg.github.com/Vaskaktusz/Skofnung</url>
         </repository>
     </distributionManagement>
 </project>
