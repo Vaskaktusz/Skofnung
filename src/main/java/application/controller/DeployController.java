@@ -15,7 +15,7 @@ public class DeployController {
     private DeployRepository deployRepository;
 
     @PutMapping("/deploys/save")
-    public void save(@RequestBody @Valid Source source) {
-        deployRepository.save(source);
+    public String save(@RequestBody @Valid Source source) {
+        return deployRepository.save(source);
     }
 }

@@ -10,7 +10,7 @@ public class DeployRepository {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void save(Source source) {
-        restTemplate.httpPost(source, "/api/deploy");
+    public String save(Source source) {
+        return restTemplate.httpPost(source, "/api/deploy");
     }
 }
