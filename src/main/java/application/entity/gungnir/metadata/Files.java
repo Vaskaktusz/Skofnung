@@ -1,15 +1,15 @@
 package application.entity.gungnir.metadata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 
-public final class Files extends LinkedList<Files.File> {
-
+public final class Files extends HashMap<String, Files.File> {
     @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class File {
-        private final String _embedded;
+        private String _embedded;
         private String mode;
         private String ino;
         private String dev;
