@@ -27,7 +27,6 @@ public final class RestTemplate {
     public String httpPost(Source source, String contextPath) {
         HttpPut request = new HttpPut(String.format("http://%s%s", source.getLocation(), contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
-        request.setHeader(HttpHeaders.CONTENT_TYPE, "text/html");
         request.setEntity(new StringEntity(source.getScript(), "UTF-8"));
         try {
             HttpClient httpclient = HttpClients.createDefault();
