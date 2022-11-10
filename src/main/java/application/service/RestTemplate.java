@@ -24,7 +24,7 @@ import java.util.Collections;
 @Service
 public final class RestTemplate {
 
-    public String httpPost(Source source, String contextPath) {
+    public String httpPut(Source source, String contextPath) {
         HttpPut request = new HttpPut(getURL(source, contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
         request.setEntity(new StringEntity(source.getScript(), "UTF-8"));

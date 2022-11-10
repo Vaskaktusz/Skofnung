@@ -11,6 +11,6 @@ public class DeployRepository {
     private RestTemplate restTemplate;
 
     public String save(Source source) {
-        return restTemplate.httpPost(source, "/api/deploy");
+        return restTemplate.httpPut(source, "/api/deploy");
     }
 }

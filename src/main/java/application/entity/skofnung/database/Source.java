@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Source extends Address {
+public class Source extends Bucket {
     @NotBlank
     private String script;
 }

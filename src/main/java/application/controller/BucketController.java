@@ -2,6 +2,7 @@ package application.controller;
 
 import application.entity.gungnir.metadata.Files;
 import application.entity.skofnung.database.Bucket;
+import application.entity.skofnung.database.Source;
 import application.repository.BucketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class BucketController {
     }
 
     @PutMapping("/buckets/save")
-    public void save(@RequestBody @Valid Bucket bucket) {
+    public void save(@RequestBody @Valid Source bucket) {
         bucketRepository.save(bucket);
     }
 }
