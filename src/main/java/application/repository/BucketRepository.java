@@ -20,7 +20,9 @@ public class BucketRepository {
     public Files findByBucket(Bucket bucket) {
         Files files = new Files();
         if (StringUtils.hasText(bucket.getFile())) {
-            files.add(new Files.File(restTemplate.exchange(bucket, String.class, HttpMethod.GET, contextPath(bucket.getFolder(), bucket.getFile()))));
+            Files.File file = new Files.File();
+            file.set_embedded(restTemplate.exchange(bucket, String.class, HttpMethod.GET, contextPath(bucket.getFolder(), bucket.getFile())));
+            files.put(bucket.getFile(), file);
         } else {
             files = restTemplate.exchange(bucket, Files.class, HttpMethod.GET, contextPath(bucket.getFolder()));
         }
@@ -33,6 +35,6 @@ public class BucketRepository {
     }
 
     private String contextPath(String... args) {
-        return "/api/bucket".concat(String.join("/", args));
+        return "/api/bucket/".concat(String.join("/", args));
     }
 }
