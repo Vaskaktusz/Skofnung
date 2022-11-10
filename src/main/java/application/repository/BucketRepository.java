@@ -2,6 +2,7 @@ package application.repository;
 
 import application.entity.gungnir.metadata.Files;
 import application.entity.skofnung.database.Bucket;
+import application.entity.skofnung.database.Source;
 import application.service.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -29,9 +30,8 @@ public class BucketRepository {
         return files;
     }
 
-    public void save(Bucket bucket) {
-        // TODO: The actual file is not yet passed from the request to the call.
-        restTemplate.exchange(bucket, Void.class, HttpMethod.PUT, contextPath(bucket.getFolder()));
+    public void save(Source source) {
+        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
     }
 
     private String contextPath(String... args) {
