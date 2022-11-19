@@ -24,7 +24,7 @@ import java.util.Collections;
 @Service
 public final class RestTemplate {
     public String httpPut(Source source, String contextPath) {
-        HttpPut request = new HttpPut(getURL(source, contextPath));
+        HttpPut request = new HttpPut(source.getLocation().concat(contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
         request.setEntity(new StringEntity(source.getScript(), "UTF-8"));
         try {
@@ -43,15 +43,11 @@ public final class RestTemplate {
         return String.format("Basic %s", new String(encodedAuth));
     }
 
-    private String getURL(Address address, String contextPath) {
-        return String.format("http://%s%s", address.getLocation(), contextPath);
-    }
-
     public <K> K exchange(Address address, Class<K> clazz, HttpMethod method, String contextPath) {
         org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
         restTemplate.getMessageConverters().add(setSupportedMediaTypes());
         ResponseEntity<K> responseEntity = restTemplate.exchange(
-                getURL(address, contextPath),
+                address.getLocation().concat(contextPath),
                 method,
                 setBasicAuth(address.getUsername(), address.getPassword()),
                 clazz);

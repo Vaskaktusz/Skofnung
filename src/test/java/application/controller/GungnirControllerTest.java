@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.util.Configuration;
 import application.util.Payload;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 class GungnirControllerTest {
     @Autowired
+    private Configuration configuration;
+    @Autowired
     private MockMvc mockMvc;
 
     @Test
     void findByAddress() throws Exception {
-        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress()))
+        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress(configuration)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.details[*].rule").value(Matchers.everyItem(Matchers.matchesPattern("/[a-z]+(/([a-z]+|<[a-z]+>))*"))))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.details[*].endpoint").value(Matchers.everyItem(Matchers.matchesPattern("(_[a-z]+)+"))))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.details[*].view_func").value(Matchers.everyItem(Matchers.matchesPattern("(_[a-z]+)+"))))
@@ -38,7 +41,7 @@ class GungnirControllerTest {
 
     @Test
     void health() throws Exception {
-        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress()))
+        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress(configuration)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
