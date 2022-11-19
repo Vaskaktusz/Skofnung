@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @EnabledIfEnvironmentVariable(named = "INTEGRATION_TEST", matches = "(?i)(true)")
 @AutoConfigureMockMvc
 class BucketControllerTest {
-    private final DeployControllerTest deployControllerTest = new DeployControllerTest();
     @Autowired
     private Configuration configuration;
     @Autowired
@@ -33,6 +32,7 @@ class BucketControllerTest {
 
     @Test
     void save() throws Exception {
+        DeployControllerTest deployControllerTest = new DeployControllerTest();
         String name = deployControllerTest.save(mockMvc, configuration, "echo script");
         mockMvc.perform(Payload.FIND_BY_BUCKET.getRequest(Payload.buildBucket(configuration, name, "logger")))
                 .andExpect(MockMvcResultMatchers.jsonPath(String.format("$.%s._embedded", name)).value("script\n"))
