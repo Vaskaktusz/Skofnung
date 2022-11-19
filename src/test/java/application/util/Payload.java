@@ -41,33 +41,33 @@ public enum Payload {
     private final HttpMethod method;
     private final String path;
 
-    public static Address buildAddress() {
+    public static Address buildAddress(Configuration configuration) {
         Address address = new Address();
-        address.setLocation("0.0.0.0:8081");
-        address.setUsername("admin");
-        address.setPassword("admin");
+        prepareAddress(configuration, address);
         return address;
     }
 
-    public static Bucket buildBucket(String file, String folder) {
+    public static Bucket buildBucket(Configuration configuration, String file, String folder) {
         Bucket bucket = new Bucket();
         bucket.setFile(file);
         bucket.setFolder(folder);
-        bucket.setLocation("0.0.0.0:8081");
-        bucket.setUsername("admin");
-        bucket.setPassword("admin");
+        prepareAddress(configuration, bucket);
         return bucket;
     }
 
-    public static Source buildSource(String script, String file, String folder) {
+    public static Source buildSource(Configuration configuration, String script, String file, String folder) {
         Source source = new Source();
         source.setScript(script);
         source.setFile(file);
         source.setFolder(folder);
-        source.setLocation("0.0.0.0:8081");
-        source.setUsername("admin");
-        source.setPassword("admin");
+        prepareAddress(configuration, source);
         return source;
+    }
+
+    private static <T extends Address> void prepareAddress(Configuration configuration, T address) {
+        address.setLocation(configuration.getLocation());
+        address.setUsername(configuration.getUsername());
+        address.setPassword(configuration.getPassword());
     }
 
     public MockHttpServletRequestBuilder getRequest(Address content) throws JsonProcessingException {
