@@ -1,18 +1,17 @@
 package application.controller;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import application.util.Payload;
+import org.hamcrest.Matchers;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 class DeployControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    void save() {
+    String save(MockMvc mockMvc, String script) throws Exception {
+        return mockMvc.perform(Payload.DEPLOYS_SAVE.getRequest(Payload.buildSource(script, null, null)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(Matchers.matchesPattern("[a-z0-9]{32}")))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
     }
 }

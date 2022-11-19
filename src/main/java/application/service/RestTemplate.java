@@ -23,7 +23,6 @@ import java.util.Collections;
 
 @Service
 public final class RestTemplate {
-
     public String httpPut(Source source, String contextPath) {
         HttpPut request = new HttpPut(getURL(source, contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
