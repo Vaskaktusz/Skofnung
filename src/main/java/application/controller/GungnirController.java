@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class GungnirController {
+public final class GungnirController {
     @Autowired
     private GungnirRepository gungnirRepository;
 

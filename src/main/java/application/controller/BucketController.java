@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class BucketController {
+public final class BucketController {
     @Autowired
     private BucketRepository bucketRepository;
 
