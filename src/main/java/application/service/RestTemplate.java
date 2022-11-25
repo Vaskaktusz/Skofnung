@@ -7,7 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,12 +23,15 @@ import java.util.Collections;
 
 @Service
 public final class RestTemplate {
+    @Autowired
+    private RequestFactory requestFactory;
+
     public String httpPut(Source source, String contextPath) {
         HttpPut request = new HttpPut(source.getLocation().concat(contextPath));
         request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
         request.setEntity(new StringEntity(source.getScript(), "UTF-8"));
         try {
-            HttpClient httpclient = HttpClients.createDefault();
+            HttpClient httpclient = requestFactory.httpClient();
             HttpResponse response = httpclient.execute(request);
             return new String(response.getEntity().getContent().readAllBytes());
         } catch (IOException ioe) {
@@ -44,7 +47,7 @@ public final class RestTemplate {
     }
 
     public <K> K exchange(Address address, Class<K> clazz, HttpMethod method, String contextPath) {
-        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(requestFactory.loadTrustMaterial());
         restTemplate.getMessageConverters().add(setSupportedMediaTypes());
         ResponseEntity<K> responseEntity = restTemplate.exchange(
                 address.getLocation().concat(contextPath),

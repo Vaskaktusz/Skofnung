@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class DeployController {
+public final class DeployController {
     @Autowired
     private DeployRepository deployRepository;
 
