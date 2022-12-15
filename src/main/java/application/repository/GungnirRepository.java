@@ -7,7 +7,6 @@ import application.entity.gungnir.metadata.System;
 import application.entity.skofnung.database.Address;
 import application.service.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,13 +16,13 @@ public class GungnirRepository {
 
     public Gungnir findByAddress(Address address) {
         Gungnir gungnir = new Gungnir();
-        gungnir.setDetails(restTemplate.exchange(address, Details.class, HttpMethod.GET, "/api/detail"));
-        gungnir.setDevice(restTemplate.exchange(address, Device.class, HttpMethod.GET, "/api/device"));
-        gungnir.setSystem(restTemplate.exchange(address, System.class, HttpMethod.GET, "/api/system"));
+        gungnir.setDetails(restTemplate.httpGet(address, "/api/detail", Details.class));
+        gungnir.setDevice(restTemplate.httpGet(address, "/api/device", Device.class));
+        gungnir.setSystem(restTemplate.httpGet(address, "/api/system", System.class));
         return gungnir;
     }
 
     public void health(Address address) {
-        restTemplate.exchange(address, Void.class, HttpMethod.GET, "/api/health");
+        restTemplate.httpGet(address, "/api/health", Void.class);
     }
 }

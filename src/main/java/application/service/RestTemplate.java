@@ -1,71 +1,41 @@
 package application.service;
 
 import application.entity.skofnung.database.Address;
+import application.entity.skofnung.database.Bucket;
 import application.entity.skofnung.database.Source;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.AbstractGenericHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+import java.util.HashMap;
 
 @Service
 public final class RestTemplate {
     @Autowired
-    private RequestFactory requestFactory;
+    private ConnectionManager connectionManager;
+
+    public void httpDelete(Bucket bucket, String contextPath) {
+        exchange(bucket, contextPath, Void.class, HttpMethod.DELETE, null);
+    }
+
+    public <K> K httpGet(Address address, String contextPath, Class<K> responseType) {
+        return exchange(address, contextPath, responseType, HttpMethod.GET, null);
+    }
 
     public String httpPut(Source source, String contextPath) {
-        HttpPut request = new HttpPut(source.getLocation().concat(contextPath));
-        request.setHeader(HttpHeaders.AUTHORIZATION, getBasicAuthCode(source));
-        request.setEntity(new StringEntity(source.getScript(), "UTF-8"));
-        try {
-            HttpClient httpclient = requestFactory.httpClient();
-            HttpResponse response = httpclient.execute(request);
-            return new String(response.getEntity().getContent().readAllBytes());
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        return null;
+        return exchange(source, contextPath, String.class, HttpMethod.PUT, source.getScript());
     }
 
-    private String getBasicAuthCode(Address address) {
-        String auth = String.format("%s:%s", address.getUsername(), address.getPassword());
-        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.ISO_8859_1));
-        return String.format("Basic %s", new String(encodedAuth));
-    }
-
-    public <K> K exchange(Address address, Class<K> clazz, HttpMethod method, String contextPath) {
-        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(requestFactory.loadTrustMaterial());
-        restTemplate.getMessageConverters().add(setSupportedMediaTypes());
+    private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
+        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(connectionManager.getRequestFactory());
+        restTemplate.getMessageConverters().addAll(connectionManager.getMessageConverters());
         ResponseEntity<K> responseEntity = restTemplate.exchange(
                 address.getLocation().concat(contextPath),
                 method,
-                setBasicAuth(address.getUsername(), address.getPassword()),
-                clazz);
+                new HttpEntity<>(body, connectionManager.getHttpHeaders(address.getUsername(), address.getPassword(), new HashMap<>())),
+                responseType);
         return responseEntity.getBody();
-    }
-
-    private HttpEntity<String> setBasicAuth(String username, String password) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setBasicAuth(username, password);
-        return new HttpEntity<>("body", httpHeaders);
-    }
-
-    private AbstractGenericHttpMessageConverter<Object> setSupportedMediaTypes() {
-        AbstractGenericHttpMessageConverter<Object> httpMessageConverter = new MappingJackson2HttpMessageConverter();
-        httpMessageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
-        return httpMessageConverter;
     }
 }

@@ -1,9 +1,13 @@
 package application.entity.skofnung.database;
 
-@lombok.Data
-@javax.persistence.Entity
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import lombok.Data;
+
+@Data
+@Entity
 public abstract class Id {
-    @javax.persistence.Id
-    @javax.persistence.GeneratedValue
+    @GeneratedValue
+    @jakarta.persistence.Id
     private long id;
 }

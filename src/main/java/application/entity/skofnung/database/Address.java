@@ -1,10 +1,9 @@
 package application.entity.skofnung.database;
 
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
