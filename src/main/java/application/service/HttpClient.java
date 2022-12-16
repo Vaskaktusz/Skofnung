@@ -1,6 +1,5 @@
 package application.service;
 
-import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public final class ConnectionManager {
+public final class HttpClient {
     public HttpHeaders getHttpHeaders(String username, String password, Map<String, String> values) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBasicAuth(username, password);
@@ -40,7 +39,7 @@ public final class ConnectionManager {
         return requestFactory;
     }
 
-    private HttpClient getHttpClient() {
+    private org.apache.hc.client5.http.classic.HttpClient getHttpClient() {
         try {
             return HttpClients.custom()
                     .setConnectionManager(PoolingHttpClientConnectionManagerBuilder.create()

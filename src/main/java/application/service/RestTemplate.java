@@ -14,7 +14,7 @@ import java.util.HashMap;
 @Service
 public final class RestTemplate {
     @Autowired
-    private ConnectionManager connectionManager;
+    private HttpClient httpClient;
 
     public void httpDelete(Bucket bucket, String contextPath) {
         exchange(bucket, contextPath, Void.class, HttpMethod.DELETE, null);
@@ -29,12 +29,12 @@ public final class RestTemplate {
     }
 
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
-        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(connectionManager.getRequestFactory());
-        restTemplate.getMessageConverters().addAll(connectionManager.getMessageConverters());
+        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(httpClient.getRequestFactory());
+        restTemplate.getMessageConverters().addAll(httpClient.getMessageConverters());
         ResponseEntity<K> responseEntity = restTemplate.exchange(
                 address.getLocation().concat(contextPath),
                 method,
-                new HttpEntity<>(body, connectionManager.getHttpHeaders(address.getUsername(), address.getPassword(), new HashMap<>())),
+                new HttpEntity<>(body, httpClient.getHttpHeaders(address.getUsername(), address.getPassword(), new HashMap<>())),
                 responseType);
         return responseEntity.getBody();
     }
