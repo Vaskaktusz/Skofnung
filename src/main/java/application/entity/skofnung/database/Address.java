@@ -13,6 +13,5 @@ public class Address extends Id {
     private String location;
     @NotBlank
     private String username;
-    @NotBlank
     private String password;
 }

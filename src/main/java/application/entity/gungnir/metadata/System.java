@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public final class System {
-    private String groupId;
-    private String artifactId;
+    private String author;
+    private String name;
     private String version;
 }

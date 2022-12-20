@@ -52,8 +52,7 @@
     </dependencies>
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
+            <id>central</id>
             <url>https://maven.pkg.github.com/Vaskaktusz/Skofnung</url>
         </repository>
     </distributionManagement>
