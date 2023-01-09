@@ -42,10 +42,13 @@ public final class HttpClient {
     private org.apache.hc.client5.http.classic.HttpClient getHttpClient() {
         try {
             return HttpClients.custom()
-                    .setConnectionManager(PoolingHttpClientConnectionManagerBuilder.create()
-                            .setSSLSocketFactory(SSLConnectionSocketFactoryBuilder.create()
+                    .setConnectionManager(PoolingHttpClientConnectionManagerBuilder
+                            .create()
+                            .setSSLSocketFactory(SSLConnectionSocketFactoryBuilder
+                                    .create()
                                     .setSslContext(SSLContexts.custom().loadTrustMaterial(null, (chain, authType) -> true).build())
-                                    .setHostnameVerifier((hostname, session) -> true).build())
+                                    .setHostnameVerifier((hostname, session) -> true)
+                                    .build())
                             .build())
                     .evictExpiredConnections()
                     .build();
