@@ -3,16 +3,16 @@ package application.controller;
 import application.util.Configuration;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@SpringBootTest
-@EnabledIfEnvironmentVariable(named = "INTEGRATION_TEST", matches = "(?i)(true)")
 @AutoConfigureMockMvc
+@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
+@SpringBootTest
 class BucketControllerTest {
     @Autowired
     private Configuration configuration;
