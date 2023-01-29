@@ -4,7 +4,7 @@ import application.util.Configuration;
 import application.util.Payload;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
-@EnabledIfEnvironmentVariable(named = "INTEGRATION_TEST", matches = "(?i)(true)")
+@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
 @SpringBootTest
 class GungnirControllerTest {
     @Autowired
