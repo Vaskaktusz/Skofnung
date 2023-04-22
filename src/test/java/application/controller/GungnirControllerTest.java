@@ -33,7 +33,7 @@ class GungnirControllerTest {
                 .andExpect(jsonPath("$.system.author").value(matchesPattern("[a-z]+")))
                 .andExpect(jsonPath("$.system.name").value(matchesPattern("[a-z]+")))
                 .andExpect(jsonPath("$.system.version").value(matchesPattern("[1-9](\\.[0-9]+){2}")))
-                .andExpect(jsonPath("$.device.system").isNotEmpty())
+                .andExpect(jsonPath("$.device.system").value(matchesPattern("Darwin|Java|Linux|Windows")))
                 .andExpect(jsonPath("$.device.node").isNotEmpty())
                 .andExpect(jsonPath("$.device.release").isNotEmpty())
                 .andExpect(jsonPath("$.device.version").isNotEmpty())
