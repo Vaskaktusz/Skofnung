@@ -7,7 +7,6 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @ControllerAdvice
 public final class ClientError {
-
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> handle(HttpClientErrorException cee) {
         return new ResponseEntity<>(cee.getStatusText(), cee.getStatusCode());
