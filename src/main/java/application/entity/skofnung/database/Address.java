@@ -1,5 +1,7 @@
 package application.entity.skofnung.database;
 
+import application.converter.DatabaseEncryptor;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -9,9 +11,13 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Address extends Id {
+    @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
     private String location;
+    @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
     private String username;
+    @Convert(converter = DatabaseEncryptor.class)
+    @NotBlank
     private String password;
 }
