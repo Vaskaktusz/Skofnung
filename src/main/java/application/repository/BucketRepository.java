@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+
 @Repository
 public class BucketRepository {
     @Autowired
@@ -34,6 +36,6 @@ public class BucketRepository {
     }
 
     private String contextPath(String... args) {
-        return "/api/bucket/".concat(String.join("/", args));
+        return "/api/bucket/".concat(String.join("/", Arrays.stream(args).filter(StringUtils::hasText).toList()));
     }
 }
