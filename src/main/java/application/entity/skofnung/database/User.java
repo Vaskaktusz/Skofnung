@@ -13,8 +13,8 @@ import lombok.EqualsAndHashCode;
 public class User extends Id {
     @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
-    private String username;
+    private String password;
     @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
-    private String password;
+    private String username;
 }

@@ -2,11 +2,9 @@ package application.entity.skofnung.security;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -16,13 +14,12 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    @NotBlank
     private String password;
     @Id
     private String username;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return null;
     }
 }
