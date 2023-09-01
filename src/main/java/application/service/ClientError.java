@@ -10,12 +10,12 @@ import org.springframework.web.client.RestClientResponseException;
 @ControllerAdvice
 public final class ClientError {
     @ExceptionHandler(RestClientResponseException.class)
-    public ResponseEntity<String> handle(RestClientResponseException rce) {
-        return new ResponseEntity<>(rce.getStatusText(), rce.getStatusCode());
+    public ResponseEntity<String> handle(RestClientResponseException rcre) {
+        return new ResponseEntity<>(rcre.getStatusText(), rcre.getStatusCode());
     }
 
     @ExceptionHandler(RestClientException.class)
-    public ResponseEntity<String> handle(RestClientException rae) {
-        return new ResponseEntity<>(rae.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handle(RestClientException rce) {
+        return new ResponseEntity<>(rce.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
