@@ -10,8 +10,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Address extends User {
+public class User extends Id {
     @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
-    private String location;
+    private String password;
+    @Convert(converter = DatabaseEncryptor.class)
+    @NotBlank
+    private String username;
 }

@@ -1,13 +1,10 @@
 package application.entity.skofnung.database;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import lombok.Data;
-
-@Data
-@Entity
+@lombok.Data
+@jakarta.persistence.Entity
+@jakarta.persistence.Table(name = "SKOFNUNG")
 public abstract class Id {
-    @GeneratedValue
+    @jakarta.persistence.GeneratedValue
     @jakarta.persistence.Id
     private long id;
 }

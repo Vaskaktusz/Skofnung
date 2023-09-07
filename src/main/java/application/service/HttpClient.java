@@ -39,6 +39,7 @@ public final class HttpClient {
         return requestFactory;
     }
 
+    // TODO: retest w/ defaults & make it customizable.
     private org.apache.hc.client5.http.classic.HttpClient getHttpClient() {
         try {
             return HttpClients.custom()
