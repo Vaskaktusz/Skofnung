@@ -6,6 +6,7 @@ import application.entity.skofnung.database.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -38,13 +39,10 @@ public enum Payload {
             "/buckets/search/findByBucket"
     );
 
+    @Setter
     private static Configuration configuration;
     private final HttpMethod method;
     private final String path;
-
-    public static void setConfiguration(Configuration configuration) {
-        Payload.configuration = configuration;
-    }
 
     public static Address buildAddress() {
         Address address = new Address();
