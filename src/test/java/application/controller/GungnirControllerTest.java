@@ -18,14 +18,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
 @SpringBootTest
 class GungnirControllerTest {
+    private final MockMvc mockMvc;
+
     @Autowired
-    private Configuration configuration;
-    @Autowired
-    private MockMvc mockMvc;
+    public GungnirControllerTest(Configuration configuration, MockMvc mockMvc) {
+        Payload.setConfiguration(configuration);
+        this.mockMvc = mockMvc;
+    }
 
     @Test
     void findByAddress() throws Exception {
-        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress(configuration)))
+        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress()))
                 .andExpect(jsonPath("$.details[*].rule").value(everyItem(matchesPattern("/[a-z]+(/([a-z]+|<[a-z]+>))*"))))
                 .andExpect(jsonPath("$.details[*].endpoint").value(everyItem(matchesPattern("(_[a-z]+)+"))))
                 .andExpect(jsonPath("$.details[*].view_func").value(everyItem(matchesPattern("(_[a-z]+)+"))))
@@ -44,7 +47,7 @@ class GungnirControllerTest {
 
     @Test
     void health() throws Exception {
-        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress(configuration)))
+        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress()))
                 .andExpect(status().isOk());
     }
 }
