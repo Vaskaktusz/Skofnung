@@ -19,7 +19,7 @@ class BucketControllerTest {
     private final MockMvc mockMvc;
 
     @Autowired
-    public BucketControllerTest(Configuration configuration, MockMvc mockMvc) {
+    BucketControllerTest(Configuration configuration, MockMvc mockMvc) {
         Payload.setConfiguration(configuration);
         this.mockMvc = mockMvc;
     }

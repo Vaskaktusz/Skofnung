@@ -21,7 +21,7 @@ class GungnirControllerTest {
     private final MockMvc mockMvc;
 
     @Autowired
-    public GungnirControllerTest(Configuration configuration, MockMvc mockMvc) {
+    GungnirControllerTest(Configuration configuration, MockMvc mockMvc) {
         Payload.setConfiguration(configuration);
         this.mockMvc = mockMvc;
     }
