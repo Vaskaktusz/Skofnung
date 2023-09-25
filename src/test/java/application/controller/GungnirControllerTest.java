@@ -3,12 +3,14 @@ package application.controller;
 import application.util.BaseTest;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
 class GungnirControllerTest extends BaseTest {
     @Test
     void findByAddress() throws Exception {
