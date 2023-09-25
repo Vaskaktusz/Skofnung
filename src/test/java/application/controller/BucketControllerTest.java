@@ -1,29 +1,13 @@
 package application.controller;
 
-import application.util.Configuration;
+import application.util.BaseTest;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
-@SpringBootTest
-class BucketControllerTest {
-    private final MockMvc mockMvc;
-
-    @Autowired
-    BucketControllerTest(Configuration configuration, MockMvc mockMvc) {
-        Payload.setConfiguration(configuration);
-        this.mockMvc = mockMvc;
-    }
-
+class BucketControllerTest extends BaseTest {
     @Test
     void buckets() throws Exception {
         mockMvc.perform(Payload.BUCKETS_SAVE.getRequest(Payload.buildSource("script", "file", "upload")))

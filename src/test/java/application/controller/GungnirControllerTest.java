@@ -1,31 +1,15 @@
 package application.controller;
 
-import application.util.Configuration;
+import application.util.BaseTest;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
-@SpringBootTest
-class GungnirControllerTest {
-    private final MockMvc mockMvc;
-
-    @Autowired
-    GungnirControllerTest(Configuration configuration, MockMvc mockMvc) {
-        Payload.setConfiguration(configuration);
-        this.mockMvc = mockMvc;
-    }
-
+class GungnirControllerTest extends BaseTest {
     @Test
     void findByAddress() throws Exception {
         mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress()))
