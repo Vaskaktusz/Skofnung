@@ -17,7 +17,7 @@ public class WebSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(SecurityConfigurerAdapter::and)
+                .httpBasic(httpBasic -> httpBasic.init(httpSecurity))
                 .build();
     }
 
