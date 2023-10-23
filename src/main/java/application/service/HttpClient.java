@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public final class HttpClient {
