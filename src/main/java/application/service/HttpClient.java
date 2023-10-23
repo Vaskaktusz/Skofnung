@@ -20,10 +20,9 @@ import java.util.Map;
 
 @Service
 public final class HttpClient {
-    public HttpHeaders getHttpHeaders(String username, String password, Map<String, String> values) {
+    public HttpHeaders getHttpHeaders(String username, String password) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBasicAuth(username, password);
-        httpHeaders.setAll(values);
         return httpHeaders;
     }
 

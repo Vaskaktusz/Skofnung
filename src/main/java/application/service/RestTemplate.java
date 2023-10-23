@@ -34,7 +34,7 @@ public final class RestTemplate {
         ResponseEntity<K> responseEntity = restTemplate.exchange(
                 address.getLocation().concat(contextPath),
                 method,
-                new HttpEntity<>(body, httpClient.getHttpHeaders(address.getUsername(), address.getPassword(), new HashMap<>())),
+                new HttpEntity<>(body, httpClient.getHttpHeaders(address.getUsername(), address.getPassword())),
                 responseType);
         return responseEntity.getBody();
     }
