@@ -12,6 +12,7 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -32,12 +33,9 @@ public final class HttpClient {
     }
 
     public ClientHttpRequestFactory getRequestFactory() {
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(getHttpClient());
-        return requestFactory;
+        return new HttpComponentsClientHttpRequestFactory(getHttpClient());
     }
 
-    // TODO: retest w/ defaults & make it customizable.
     private org.apache.hc.client5.http.classic.HttpClient getHttpClient() {
         try {
             return HttpClients.custom()
@@ -52,7 +50,7 @@ public final class HttpClient {
                     .evictExpiredConnections()
                     .build();
         } catch (GeneralSecurityException gse) {
-            return HttpClients.createDefault();
+            throw new RestClientException("HttpClient setup failed.", gse);
         }
     }
 }
