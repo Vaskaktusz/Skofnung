@@ -31,9 +31,9 @@ public final class RestTemplate {
 
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
         return restTemplateBuilder
-                .requestFactory(() -> httpClient.getRequestFactory())
                 .basicAuthentication(address.getUsername(), address.getPassword())
                 .messageConverters(httpClient.getMessageConverters())
+                .requestFactory(() -> httpClient.getRequestFactory())
                 .build()
                 .exchange(
                         address.getLocation().concat(contextPath),
