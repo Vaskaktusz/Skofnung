@@ -1,18 +1,21 @@
 package application.service;
 
+import application.configuration.HttpClient;
 import application.entity.skofnung.database.Address;
 import application.entity.skofnung.database.Bucket;
 import application.entity.skofnung.database.Source;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+ import org.springframework.stereotype.Service;
 
 @Service
 public final class RestTemplate {
     @Autowired
     private HttpClient httpClient;
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
 
     public void httpDelete(Bucket bucket, String contextPath) {
         exchange(bucket, contextPath, Void.class, HttpMethod.DELETE, null);
@@ -27,13 +30,16 @@ public final class RestTemplate {
     }
 
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
-        org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate(httpClient.getRequestFactory());
-        restTemplate.getMessageConverters().addAll(httpClient.getMessageConverters());
-        ResponseEntity<K> responseEntity = restTemplate.exchange(
-                address.getLocation().concat(contextPath),
-                method,
-                new HttpEntity<>(body, httpClient.getHttpHeaders(address.getUsername(), address.getPassword())),
-                responseType);
-        return responseEntity.getBody();
+        return restTemplateBuilder
+                .requestFactory(() -> httpClient.getRequestFactory())
+                .basicAuthentication(address.getUsername(), address.getPassword())
+                .messageConverters(httpClient.getMessageConverters())
+                .build()
+                .exchange(
+                        address.getLocation().concat(contextPath),
+                        method,
+                        new HttpEntity<>(body),
+                        responseType)
+                .getBody();
     }
 }
