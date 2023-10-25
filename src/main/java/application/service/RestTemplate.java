@@ -32,7 +32,7 @@ public final class RestTemplate {
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
         return restTemplateBuilder
                 .basicAuthentication(address.getUsername(), address.getPassword())
-                .messageConverters(httpClient.getMessageConverters())
+                .additionalMessageConverters(httpClient.getMessageConverters())
                 .requestFactory(() -> httpClient.getRequestFactory())
                 .build()
                 .exchange(
