@@ -1,14 +1,13 @@
 package application.converter;
 
 import jakarta.persistence.AttributeConverter;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 
-public final class DatabaseEncryptor implements AttributeConverter<String, String> {
-    private final TextEncryptor textEncryptor = Encryptors.text(
-            System.getProperty("spring.security.converter.password"),
-            System.getProperty("spring.security.converter.salt")
-    );
+public final class DatabaseEncryptor implements AttributeConverter<String, String>, EnvironmentAware {
+    private TextEncryptor textEncryptor;
 
     @Override
     public String convertToDatabaseColumn(String attribute) {
@@ -18,5 +17,13 @@ public final class DatabaseEncryptor implements AttributeConverter<String, Strin
     @Override
     public String convertToEntityAttribute(String dbData) {
         return textEncryptor.decrypt(dbData);
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        textEncryptor = Encryptors.text(
+                environment.getProperty("spring.security.password"),
+                environment.getProperty("spring.security.salt")
+        );
     }
 }

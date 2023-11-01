@@ -1,31 +1,20 @@
 package application.controller;
 
-import application.util.Configuration;
+import application.util.BaseTest;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 @EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
-@SpringBootTest
-class GungnirControllerTest {
-    @Autowired
-    private Configuration configuration;
-    @Autowired
-    private MockMvc mockMvc;
-
+class GungnirControllerTest extends BaseTest {
     @Test
     void findByAddress() throws Exception {
-        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress(configuration)))
+        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress()))
                 .andExpect(jsonPath("$.details[*].rule").value(everyItem(matchesPattern("/[a-z]+(/([a-z]+|<[a-z]+>))*"))))
                 .andExpect(jsonPath("$.details[*].endpoint").value(everyItem(matchesPattern("(_[a-z]+)+"))))
                 .andExpect(jsonPath("$.details[*].view_func").value(everyItem(matchesPattern("(_[a-z]+)+"))))
@@ -44,7 +33,7 @@ class GungnirControllerTest {
 
     @Test
     void health() throws Exception {
-        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress(configuration)))
+        mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress()))
                 .andExpect(status().isOk());
     }
 }

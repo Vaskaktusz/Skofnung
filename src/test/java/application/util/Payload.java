@@ -6,6 +6,7 @@ import application.entity.skofnung.database.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -38,33 +39,35 @@ public enum Payload {
             "/buckets/search/findByBucket"
     );
 
+    @Setter
+    private static Configuration configuration;
     private final HttpMethod method;
     private final String path;
 
-    public static Address buildAddress(Configuration configuration) {
+    public static Address buildAddress() {
         Address address = new Address();
-        prepareAddress(configuration, address);
+        prepareAddress(address);
         return address;
     }
 
-    public static Bucket buildBucket(Configuration configuration, String file, String folder) {
+    public static Bucket buildBucket(String file, String folder) {
         Bucket bucket = new Bucket();
         bucket.setFile(file);
         bucket.setFolder(folder);
-        prepareAddress(configuration, bucket);
+        prepareAddress(bucket);
         return bucket;
     }
 
-    public static Source buildSource(Configuration configuration, String script, String file, String folder) {
+    public static Source buildSource(String script, String file, String folder) {
         Source source = new Source();
         source.setScript(script);
         source.setFile(file);
         source.setFolder(folder);
-        prepareAddress(configuration, source);
+        prepareAddress(source);
         return source;
     }
 
-    private static <T extends Address> void prepareAddress(Configuration configuration, T address) {
+    private static <T extends Address> void prepareAddress(T address) {
         address.setLocation(configuration.getLocation());
         address.setUsername(configuration.getUsername());
         address.setPassword(configuration.getPassword());
