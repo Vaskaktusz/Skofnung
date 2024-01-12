@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: $SPRING_DATASOURCE_USERNAME
+      POSTGRES_PASSWORD: $SPRING_DATASOURCE_PASSWORD
+    ports:
+      - 5432:5432
+  skofnung:
+    build: .
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres

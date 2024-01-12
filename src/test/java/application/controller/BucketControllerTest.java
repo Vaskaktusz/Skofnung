@@ -3,12 +3,12 @@ package application.controller;
 import application.util.BaseTest;
 import application.util.Payload;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@EnabledIfSystemProperty(named = "spring.profiles.active", matches = "test")
+@EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "test")
 class BucketControllerTest extends BaseTest {
     @Test
     void buckets() throws Exception {
