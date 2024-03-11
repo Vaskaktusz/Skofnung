@@ -14,15 +14,15 @@ public class GungnirRepository {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Gungnir findByAddress(Address address) {
+    public void health(Address address) {
+        restTemplate.httpGet(address, "/api/health", Void.class);
+    }
+
+    public Gungnir search(Address address) {
         Gungnir gungnir = new Gungnir();
         gungnir.setDetails(restTemplate.httpGet(address, "/api/detail", Details.class));
         gungnir.setDevice(restTemplate.httpGet(address, "/api/device", Device.class));
         gungnir.setSystem(restTemplate.httpGet(address, "/api/system", System.class));
         return gungnir;
-    }
-
-    public void health(Address address) {
-        restTemplate.httpGet(address, "/api/health", Void.class);
     }
 }

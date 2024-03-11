@@ -14,29 +14,29 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @RequiredArgsConstructor
 public enum Payload {
+    BUCKETS_DELETE(
+            HttpMethod.DELETE,
+            "/buckets"
+    ),
+    BUCKETS_PUT(
+            HttpMethod.PUT,
+            "/buckets"
+    ),
+    BUCKETS_SEARCH(
+            HttpMethod.POST,
+            "/buckets/search"
+    ),
+    DEPLOY(
+            HttpMethod.PUT,
+            "/deploy"
+    ),
     HEALTH(
             HttpMethod.POST,
             "/health"
     ),
-    GUNGNIRS_SEARCH_FINDBYADDRESS(
+    SEARCH(
             HttpMethod.POST,
-            "/gungnirs/search/findByAddress"
-    ),
-    DEPLOYS_SAVE(
-            HttpMethod.PUT,
-            "/deploys/save"
-    ),
-    BUCKETS_DELETE(
-            HttpMethod.DELETE,
-            "/buckets/delete"
-    ),
-    BUCKETS_SAVE(
-            HttpMethod.PUT,
-            "/buckets/save"
-    ),
-    FIND_BY_BUCKET(
-            HttpMethod.POST,
-            "/buckets/search/findByBucket"
+            "/search"
     );
 
     @Setter

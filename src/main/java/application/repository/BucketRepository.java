@@ -19,7 +19,11 @@ public class BucketRepository {
         restTemplate.httpDelete(bucket, contextPath(bucket.getFolder(), bucket.getFile()));
     }
 
-    public Files findByBucket(Bucket bucket) {
+    public void save(Source source) {
+        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
+    }
+
+    public Files search(Bucket bucket) {
         Files files = new Files();
         if (StringUtils.hasText(bucket.getFile())) {
             Files.File file = new Files.File();
@@ -29,10 +33,6 @@ public class BucketRepository {
             files = restTemplate.httpGet(bucket, contextPath(bucket.getFolder()), Files.class);
         }
         return files;
-    }
-
-    public void save(Source source) {
-        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
     }
 
     private String contextPath(String... args) {

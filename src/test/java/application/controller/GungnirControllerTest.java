@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class GungnirControllerTest extends BaseTest {
     @Test
     void findByAddress() throws Exception {
-        mockMvc.perform(Payload.GUNGNIRS_SEARCH_FINDBYADDRESS.getRequest(Payload.buildAddress()))
+        mockMvc.perform(Payload.SEARCH.getRequest(Payload.buildAddress()))
                 .andExpect(jsonPath("$.details[*].rule").value(everyItem(matchesPattern("/[a-z]+(/([a-z]+|<[a-z]+>))*"))))
                 .andExpect(jsonPath("$.details[*].endpoint").value(everyItem(matchesPattern("(_[a-z]+)+"))))
                 .andExpect(jsonPath("$.details[*].view_func").value(everyItem(matchesPattern("(_[a-z]+)+"))))

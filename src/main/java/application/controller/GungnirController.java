@@ -14,13 +14,13 @@ public final class GungnirController {
     @Autowired
     private GungnirRepository gungnirRepository;
 
-    @PostMapping("/gungnirs/search/findByAddress")
-    public Gungnir findByAddress(@RequestBody @Valid Address address) {
-        return gungnirRepository.findByAddress(address);
-    }
-
     @PostMapping("/health")
     public void health(@RequestBody @Valid Address address) {
         gungnirRepository.health(address);
+    }
+
+    @PostMapping("/search")
+    public Gungnir search(@RequestBody @Valid Address address) {
+        return gungnirRepository.search(address);
     }
 }

@@ -17,18 +17,18 @@ public final class BucketController {
     @Autowired
     private BucketRepository bucketRepository;
 
-    @DeleteMapping("/buckets/delete")
+    @DeleteMapping("/buckets")
     public void delete(@RequestBody @Valid Bucket bucket) {
         bucketRepository.delete(bucket);
     }
 
-    @PostMapping("/buckets/search/findByBucket")
-    public Files findByBucket(@RequestBody @Valid Bucket bucket) {
-        return bucketRepository.findByBucket(bucket);
-    }
-
-    @PutMapping("/buckets/save")
+    @PutMapping("/buckets")
     public void save(@RequestBody @Valid Source bucket) {
         bucketRepository.save(bucket);
+    }
+
+    @PostMapping("/buckets/search")
+    public Files search(@RequestBody @Valid Bucket bucket) {
+        return bucketRepository.search(bucket);
     }
 }
