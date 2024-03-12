@@ -1,4 +1,4 @@
-package application.entity.skofnung.database;
+package application.entity.database;
 
 import jakarta.persistence.Entity;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package application.entity.skofnung.database;
+package application.entity.database;
 
 @lombok.Data
 @jakarta.persistence.Entity

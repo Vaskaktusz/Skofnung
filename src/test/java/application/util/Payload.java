@@ -1,8 +1,8 @@
 package application.util;
 
-import application.entity.skofnung.database.Address;
-import application.entity.skofnung.database.Bucket;
-import application.entity.skofnung.database.Source;
+import application.entity.database.Address;
+import application.entity.database.Bucket;
+import application.entity.database.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,17 @@ public enum Payload {
             HttpMethod.PUT,
             "/deploy"
     ),
+    DEVICE(
+            HttpMethod.POST,
+            "/device"
+    ),
     HEALTH(
             HttpMethod.POST,
             "/health"
     ),
-    SEARCH(
+    SYSTEM(
             HttpMethod.POST,
-            "/search"
+            "/system"
     );
 
     @Setter

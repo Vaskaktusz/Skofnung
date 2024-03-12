@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.entity.skofnung.database.Source;
+import application.entity.database.Source;
 import application.repository.DeployRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
