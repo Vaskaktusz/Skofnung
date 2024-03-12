@@ -1,9 +1,9 @@
 package application.service;
 
 import application.configuration.HttpClient;
-import application.entity.skofnung.database.Address;
-import application.entity.skofnung.database.Bucket;
-import application.entity.skofnung.database.Source;
+import application.entity.database.Address;
+import application.entity.database.Bucket;
+import application.entity.database.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;

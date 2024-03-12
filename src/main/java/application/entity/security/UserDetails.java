@@ -1,4 +1,4 @@
-package application.entity.skofnung.security;
+package application.entity.security;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

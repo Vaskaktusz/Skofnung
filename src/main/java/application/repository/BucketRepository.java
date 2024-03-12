@@ -1,8 +1,8 @@
 package application.repository;
 
-import application.entity.gungnir.metadata.Files;
-import application.entity.skofnung.database.Bucket;
-import application.entity.skofnung.database.Source;
+import application.entity.metadata.Files;
+import application.entity.database.Bucket;
+import application.entity.database.Source;
 import application.service.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +19,11 @@ public class BucketRepository {
         restTemplate.httpDelete(bucket, contextPath(bucket.getFolder(), bucket.getFile()));
     }
 
-    public Files findByBucket(Bucket bucket) {
+    public void save(Source source) {
+        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
+    }
+
+    public Files search(Bucket bucket) {
         Files files = new Files();
         if (StringUtils.hasText(bucket.getFile())) {
             Files.File file = new Files.File();
@@ -29,10 +33,6 @@ public class BucketRepository {
             files = restTemplate.httpGet(bucket, contextPath(bucket.getFolder()), Files.class);
         }
         return files;
-    }
-
-    public void save(Source source) {
-        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
     }
 
     private String contextPath(String... args) {

@@ -1,6 +1,6 @@
 package application.repository;
 
-import application.entity.skofnung.database.Source;
+import application.entity.database.Source;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

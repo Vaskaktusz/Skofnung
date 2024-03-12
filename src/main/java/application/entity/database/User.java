@@ -1,4 +1,4 @@
-package application.entity.skofnung.database;
+package application.entity.database;
 
 import application.converter.DatabaseEncryptor;
 import jakarta.persistence.Convert;

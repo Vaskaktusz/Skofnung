@@ -1,8 +1,8 @@
 package application.util;
 
-import application.entity.skofnung.database.Address;
-import application.entity.skofnung.database.Bucket;
-import application.entity.skofnung.database.Source;
+import application.entity.database.Address;
+import application.entity.database.Bucket;
+import application.entity.database.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,29 +14,33 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @RequiredArgsConstructor
 public enum Payload {
+    BUCKETS_DELETE(
+            HttpMethod.DELETE,
+            "/buckets"
+    ),
+    BUCKETS_PUT(
+            HttpMethod.PUT,
+            "/buckets"
+    ),
+    BUCKETS_SEARCH(
+            HttpMethod.POST,
+            "/buckets/search"
+    ),
+    DEPLOY(
+            HttpMethod.PUT,
+            "/deploy"
+    ),
+    DEVICE(
+            HttpMethod.POST,
+            "/device"
+    ),
     HEALTH(
             HttpMethod.POST,
             "/health"
     ),
-    GUNGNIRS_SEARCH_FINDBYADDRESS(
+    SYSTEM(
             HttpMethod.POST,
-            "/gungnirs/search/findByAddress"
-    ),
-    DEPLOYS_SAVE(
-            HttpMethod.PUT,
-            "/deploys/save"
-    ),
-    BUCKETS_DELETE(
-            HttpMethod.DELETE,
-            "/buckets/delete"
-    ),
-    BUCKETS_SAVE(
-            HttpMethod.PUT,
-            "/buckets/save"
-    ),
-    FIND_BY_BUCKET(
-            HttpMethod.POST,
-            "/buckets/search/findByBucket"
+            "/system"
     );
 
     @Setter

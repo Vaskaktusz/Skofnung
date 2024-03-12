@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.entity.skofnung.database.Source;
+import application.entity.database.Source;
 import application.repository.DeployRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ public final class DeployController {
     @Autowired
     private DeployRepository deployRepository;
 
-    @PutMapping("/deploys/save")
-    public String save(@RequestBody @Valid Source source) {
-        return deployRepository.save(source);
+    @PutMapping("/deploy")
+    public String deploy(@RequestBody @Valid Source source) {
+        return deployRepository.deploy(source);
     }
 }

@@ -1,8 +1,8 @@
 package application.controller;
 
-import application.entity.gungnir.metadata.Files;
-import application.entity.skofnung.database.Bucket;
-import application.entity.skofnung.database.Source;
+import application.entity.metadata.Files;
+import application.entity.database.Bucket;
+import application.entity.database.Source;
 import application.repository.BucketRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,18 @@ public final class BucketController {
     @Autowired
     private BucketRepository bucketRepository;
 
-    @DeleteMapping("/buckets/delete")
+    @DeleteMapping("/buckets")
     public void delete(@RequestBody @Valid Bucket bucket) {
         bucketRepository.delete(bucket);
     }
 
-    @PostMapping("/buckets/search/findByBucket")
-    public Files findByBucket(@RequestBody @Valid Bucket bucket) {
-        return bucketRepository.findByBucket(bucket);
-    }
-
-    @PutMapping("/buckets/save")
+    @PutMapping("/buckets")
     public void save(@RequestBody @Valid Source bucket) {
         bucketRepository.save(bucket);
+    }
+
+    @PostMapping("/buckets/search")
+    public Files search(@RequestBody @Valid Bucket bucket) {
+        return bucketRepository.search(bucket);
     }
 }
