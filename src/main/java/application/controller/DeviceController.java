@@ -1,8 +1,8 @@
 package application.controller;
 
+import application.entity.database.Address;
 import application.entity.metadata.Device;
 import application.entity.metadata.System;
-import application.entity.database.Address;
 import application.repository.DeviceRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,9 +10,9 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 public class BaseTest {
     @Autowired
-    private Configuration configuration;
-    @Autowired
     public MockMvc mockMvc;
+    @Autowired
+    private Configuration configuration;
 
     @PostConstruct
     private void init() {
