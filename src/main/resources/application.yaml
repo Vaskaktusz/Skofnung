@@ -1,3 +1,6 @@
+logging:
+  file:
+    name: /tmp/vaskaktusz/skofnung.log
 spring:
   jackson:
     default-property-inclusion: NON_EMPTY
