@@ -4,4 +4,4 @@ RUN apt update
 RUN apt install maven -y
 
 COPY . .
-CMD ["mvn", "spring-boot:run"]
+CMD ["mvn", "spring-boot:run", "-P production"]
