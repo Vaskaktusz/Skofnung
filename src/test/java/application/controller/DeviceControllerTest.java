@@ -5,7 +5,6 @@ import application.util.Payload;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +28,7 @@ class DeviceControllerTest extends BaseTest {
         mockMvc.perform(Payload.HEALTH.getRequest(Payload.buildAddress()))
                 .andExpect(status().isOk());
     }
+
     @Test
     void system() throws Exception {
         mockMvc.perform(Payload.SYSTEM.getRequest(Payload.buildAddress()))

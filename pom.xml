@@ -52,12 +52,6 @@
     <profiles>
         <profile>
             <id>production</id>
-            <activation>
-                <property>
-                    <name>env.SPRING_PROFILES_ACTIVE</name>
-                    <value>production</value>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
@@ -68,12 +62,6 @@
         </profile>
         <profile>
             <id>test</id>
-            <activation>
-                <property>
-                    <name>env.SPRING_PROFILES_ACTIVE</name>
-                    <value>test</value>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>com.h2database</groupId>

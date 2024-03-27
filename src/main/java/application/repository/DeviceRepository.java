@@ -1,8 +1,8 @@
 package application.repository;
 
+import application.entity.database.Address;
 import application.entity.metadata.Device;
 import application.entity.metadata.System;
-import application.entity.database.Address;
 import application.service.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
