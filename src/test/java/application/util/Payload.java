@@ -38,6 +38,18 @@ public enum Payload {
             HttpMethod.POST,
             "/health"
     ),
+    SOURCES_DELETE(
+            HttpMethod.DELETE,
+            "/sources"
+    ),
+    SOURCES_GET(
+            HttpMethod.GET,
+            "/sources"
+    ),
+    SOURCES_POST(
+            HttpMethod.POST,
+            "/sources"
+    ),
     SYSTEM(
             HttpMethod.POST,
             "/system"
