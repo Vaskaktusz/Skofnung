@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "gungnir,test")
-public class SourceRepositoryTest extends BaseTest {a
+public class SourceRepositoryTest extends BaseTest {
     @Test
     void save() throws Exception {
         String location = mockMvc.perform(Payload.SOURCES_POST.getRequest(Payload.buildSource("script", "file", "upload")))
