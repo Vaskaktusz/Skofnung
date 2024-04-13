@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "test")
+@EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "gungnir,test")
 class DeviceControllerTest extends BaseTest {
     @Test
     void device() throws Exception {

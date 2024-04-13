@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class DeployControllerTest {
-    String save(MockMvc mockMvc, String script) throws Exception {
+    String deploy(MockMvc mockMvc, String script) throws Exception {
         return mockMvc.perform(Payload.DEPLOY.getRequest(Payload.buildSource(script, null, null)))
                 .andExpect(jsonPath("$").value(matchesPattern("[a-z0-9]{32}")))
                 .andExpect(status().isOk())

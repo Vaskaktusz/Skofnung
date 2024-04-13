@@ -12,7 +12,7 @@ public class BaseTest {
     @Autowired
     public MockMvc mockMvc;
     @Autowired
-    private Configuration configuration;
+    public Configuration configuration;
 
     @PostConstruct
     private void init() {
