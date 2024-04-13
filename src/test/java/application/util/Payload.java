@@ -91,9 +91,17 @@ public enum Payload {
 
     public MockHttpServletRequestBuilder getRequest(Address content) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+        return getRequest((String) null)
+                .content(mapper.writeValueAsString(content));
+    }
+
+    public MockHttpServletRequestBuilder getRequest(String id) {
+        String url = path;
+        if (id != null && !id.isBlank()) {
+            url = String.join("/", url, id);
+        }
         return MockMvcRequestBuilders
-                .request(method, path)
-                .content(mapper.writeValueAsString(content))
+                .request(method, url)
                 .contentType(MediaType.APPLICATION_JSON);
     }
 }

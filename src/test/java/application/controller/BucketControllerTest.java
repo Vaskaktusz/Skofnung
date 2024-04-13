@@ -22,9 +22,9 @@ class BucketControllerTest extends BaseTest {
     }
 
     @Test
-    void save() throws Exception {
+    void deploy() throws Exception {
         DeployControllerTest deployControllerTest = new DeployControllerTest();
-        String name = deployControllerTest.save(mockMvc, "echo script");
+        String name = deployControllerTest.deploy(mockMvc, "echo script");
         mockMvc.perform(Payload.BUCKETS_SEARCH.getRequest(Payload.buildBucket(name, "logger")))
                 .andExpect(jsonPath(String.format("$.%s._embedded", name)).value("script\n"))
                 .andExpect(status().isOk());
