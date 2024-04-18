@@ -2,8 +2,6 @@ logging:
   file:
     name: /tmp/vaskaktusz/skofnung.log
 spring:
-  datasource:
-    url: jdbc:postgresql://postgres:5432/postgres
   jackson:
     default-property-inclusion: NON_EMPTY
   jpa:
