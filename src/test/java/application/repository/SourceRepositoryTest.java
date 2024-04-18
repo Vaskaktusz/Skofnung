@@ -21,9 +21,15 @@ public class SourceRepositoryTest extends BaseTest {
         int index = location.lastIndexOf("/");
         String id = location.substring(index + 1);
         sources(id);
+        delete(id);
     }
 
-    void sources(String id) throws Exception {
+    private void delete(String id) throws Exception {
+        mockMvc.perform(Payload.SOURCES_DELETE.getRequest(id))
+                .andExpect(status().isNoContent());
+    }
+
+    private void sources(String id) throws Exception {
         mockMvc.perform(Payload.SOURCES_GET.getRequest(id))
                 .andExpect(jsonPath("$.script").value("script"))
                 .andExpect(jsonPath("$.file").value("file"))

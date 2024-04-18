@@ -83,12 +83,6 @@ public enum Payload {
         return source;
     }
 
-    private static <T extends Address> void prepareAddress(T address) {
-        address.setLocation(configuration.getLocation());
-        address.setUsername(configuration.getUsername());
-        address.setPassword(configuration.getPassword());
-    }
-
     public MockHttpServletRequestBuilder getRequest(Address content) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return getRequest((String) null)
@@ -103,5 +97,11 @@ public enum Payload {
         return MockMvcRequestBuilders
                 .request(method, url)
                 .contentType(MediaType.APPLICATION_JSON);
+    }
+
+    private static <T extends Address> void prepareAddress(T address) {
+        address.setLocation(configuration.getLocation());
+        address.setUsername(configuration.getUsername());
+        address.setPassword(configuration.getPassword());
     }
 }
