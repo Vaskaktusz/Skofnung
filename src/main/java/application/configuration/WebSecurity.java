@@ -15,6 +15,11 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .authorizeHttpRequests(requestMatcher -> requestMatcher
+                        .requestMatchers("/register")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(httpBasic -> httpBasic.init(httpSecurity))
                 .build();

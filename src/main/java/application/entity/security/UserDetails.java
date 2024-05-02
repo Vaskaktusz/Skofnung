@@ -2,6 +2,7 @@ package application.entity.security;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -14,8 +15,10 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    @NotBlank
     private String password;
     @Id
+    @NotBlank
     private String username;
 
     @Override
