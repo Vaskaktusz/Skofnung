@@ -5,15 +5,15 @@ import application.entity.metadata.Device;
 import application.entity.metadata.System;
 import application.repository.DeviceRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public final class DeviceController {
-    @Autowired
-    private DeviceRepository deviceRepository;
+    private final DeviceRepository deviceRepository;
 
     @PostMapping("/device")
     public Device device(@RequestBody @Valid Address address) {

@@ -5,7 +5,7 @@ import application.entity.database.Source;
 import application.entity.metadata.Files;
 import application.repository.BucketRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public final class BucketController {
-    @Autowired
-    private BucketRepository bucketRepository;
+    private final BucketRepository bucketRepository;
 
     @DeleteMapping("/buckets")
     public void delete(@RequestBody @Valid Bucket bucket) {

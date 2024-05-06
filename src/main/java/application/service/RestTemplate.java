@@ -4,18 +4,17 @@ import application.configuration.HttpClient;
 import application.entity.database.Address;
 import application.entity.database.Bucket;
 import application.entity.database.Source;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public final class RestTemplate {
-    @Autowired
-    private HttpClient httpClient;
-    @Autowired
-    private RestTemplateBuilder restTemplateBuilder;
+    private final HttpClient httpClient;
+    private final RestTemplateBuilder restTemplateBuilder;
 
     public void httpDelete(Bucket bucket, String contextPath) {
         exchange(bucket, contextPath, Void.class, HttpMethod.DELETE, null);
@@ -31,9 +30,9 @@ public final class RestTemplate {
 
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {
         return restTemplateBuilder
-                .basicAuthentication(address.getUsername(), address.getPassword())
                 .additionalMessageConverters(httpClient.getMessageConverters())
-                .requestFactory(() -> httpClient.getRequestFactory())
+                .basicAuthentication(address.getUsername(), address.getPassword())
+                .requestFactory(httpClient::getRequestFactory)
                 .build()
                 .exchange(
                         address.getLocation().concat(contextPath),
