@@ -4,16 +4,16 @@ import application.entity.database.Bucket;
 import application.entity.database.Source;
 import application.entity.metadata.Files;
 import application.service.RestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 
 @Repository
+@RequiredArgsConstructor
 public class BucketRepository {
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public void delete(Bucket bucket) {
         restTemplate.httpDelete(bucket, contextPath(bucket.getFolder(), bucket.getFile()));

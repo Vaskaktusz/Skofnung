@@ -4,13 +4,13 @@ import application.entity.database.Address;
 import application.entity.metadata.Device;
 import application.entity.metadata.System;
 import application.service.RestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class DeviceRepository {
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public Device device(Address address) {
         return restTemplate.httpGet(address, "/api/device", Device.class);
