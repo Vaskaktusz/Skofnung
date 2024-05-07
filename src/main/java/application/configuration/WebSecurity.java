@@ -19,7 +19,7 @@ public class WebSecurity {
                         .requestMatchers("/register")
                         .permitAll()
                         .anyRequest()
-                        .authenticated())
+                        .hasAuthority("ROLE_USER"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(httpBasic -> httpBasic.init(httpSecurity))
                 .build();
