@@ -1,3 +1,3 @@
-location: https://0.0.0.0:443
+location: https://localhost:443
 username: admin
 password: admin
