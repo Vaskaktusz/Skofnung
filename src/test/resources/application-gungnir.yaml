@@ -1,3 +1,4 @@
-location: https://localhost
-username: gungnir
-password: gungnir
+digitalocean:
+  location: https://localhost
+  username: gungnir
+  password: gungnir
