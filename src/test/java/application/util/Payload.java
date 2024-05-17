@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -38,6 +39,10 @@ public enum Payload {
             HttpMethod.POST,
             "/health"
     ),
+    REGISTER(
+            HttpMethod.POST,
+            "/register"
+    ),
     SOURCES_DELETE(
             HttpMethod.DELETE,
             "/sources"
@@ -57,7 +62,9 @@ public enum Payload {
 
     @Setter
     private static Configuration configuration;
-    private final HttpMethod method;
+    @Setter
+    private static HttpHeaders httpHeaders;
+    private final HttpMethod httpMethod;
     private final String path;
 
     public static Address buildAddress() {
@@ -83,10 +90,8 @@ public enum Payload {
         return source;
     }
 
-    public MockHttpServletRequestBuilder getRequest(Address content) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return getRequest((String) null)
-                .content(mapper.writeValueAsString(content));
+    public MockHttpServletRequestBuilder getRequest(Object content) throws JsonProcessingException {
+        return getRequest(null).content(new ObjectMapper().writeValueAsString(content));
     }
 
     public MockHttpServletRequestBuilder getRequest(String id) {
@@ -95,7 +100,8 @@ public enum Payload {
             url = String.join("/", url, id);
         }
         return MockMvcRequestBuilders
-                .request(method, url)
+                .request(httpMethod, url)
+                .headers(httpHeaders)
                 .contentType(MediaType.APPLICATION_JSON);
     }
 

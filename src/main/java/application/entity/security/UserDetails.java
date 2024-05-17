@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 @Entity
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
     @NotBlank
     private String password;
     @Id

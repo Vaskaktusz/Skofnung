@@ -1,4 +1,4 @@
 digitalocean:
-  location: https://localhost
+  location: https://167.71.32.46
   username: gungnir
   password: gungnir
