@@ -2,14 +2,13 @@ package application.util;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @org.springframework.context.annotation.Configuration
+@ConfigurationProperties("digitalocean")
 @Data
 public class Configuration {
-    @Value("${location}")
     private String location;
-    @Value("${username}")
     private String username;
-    @Value("${password}")
     private String password;
 }

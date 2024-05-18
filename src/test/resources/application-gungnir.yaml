@@ -1,3 +1,4 @@
-location: https://0.0.0.0:443
-username: admin
-password: admin
+digitalocean:
+  location: https://167.71.32.46
+  username: gungnir
+  password: gungnir
