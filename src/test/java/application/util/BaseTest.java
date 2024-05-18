@@ -18,11 +18,12 @@ public class BaseTest {
 
     @PostConstruct
     private void init() throws Exception {
-        HttpHeaders httpHeaders = new HttpHeaders();
         Payload.setConfiguration(configuration);
+        HttpHeaders httpHeaders = new HttpHeaders();
         Payload.setHttpHeaders(httpHeaders);
-        UserDetailsControllerTest userDetailsControllerTest = new UserDetailsControllerTest(mockMvc);
-        userDetailsControllerTest.save("admin", "{noop}admin");
-        httpHeaders.setBasicAuth("admin", "admin");
+        String username = "admin";
+        String password = "admin";
+        new UserDetailsControllerTest(mockMvc).save(username, "{noop}".concat(password));
+        httpHeaders.setBasicAuth(username, password);
     }
 }
