@@ -8,7 +8,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 
 @ControllerAdvice
-public final class ClientError {
+public final class ClientErrorAdvice {
     @ExceptionHandler(RestClientResponseException.class)
     public ResponseEntity<String> handle(RestClientResponseException rcre) {
         return new ResponseEntity<>(rcre.getStatusText(), rcre.getStatusCode());
