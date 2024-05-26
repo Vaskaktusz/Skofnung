@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.entity.database.Bucket;
-import application.entity.database.Source;
+import application.entity.database.Program;
 import application.entity.metadata.Files;
 import application.repository.BucketRepository;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public final class BucketController {
     }
 
     @PutMapping("/buckets")
-    public void save(@RequestBody @Valid Source bucket) {
+    public void save(@RequestBody @Valid Program bucket) {
         bucketRepository.save(bucket);
     }
 

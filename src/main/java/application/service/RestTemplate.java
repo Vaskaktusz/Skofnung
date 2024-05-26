@@ -3,7 +3,8 @@ package application.service;
 import application.configuration.HttpClient;
 import application.entity.database.Address;
 import application.entity.database.Bucket;
-import application.entity.database.Source;
+import application.entity.database.Program;
+import application.entity.database.Script;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -24,8 +25,12 @@ public final class RestTemplate {
         return exchange(address, contextPath, responseType, HttpMethod.GET, null);
     }
 
-    public String httpPut(Source source, String contextPath) {
-        return exchange(source, contextPath, String.class, HttpMethod.PUT, source.getScript());
+    public void httpPut(Program program, String contextPath) {
+        exchange(program, contextPath, Void.class, HttpMethod.PUT, program.getCode());
+    }
+
+    public String httpPut(Script script, String contextPath) {
+        return exchange(script, contextPath, String.class, HttpMethod.PUT, script.getCode());
     }
 
     private <K> K exchange(Address address, String contextPath, Class<K> responseType, HttpMethod method, String body) {

@@ -10,28 +10,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @EnabledIfEnvironmentVariable(named = "SPRING_PROFILES_ACTIVE", matches = "gungnir,test")
-public class SourceRepositoryTest extends BaseTest {
+public class ProgramRepositoryTest extends BaseTest {
     @Test
     void save() throws Exception {
-        String location = mockMvc.perform(Payload.SOURCES_POST.getRequest(Payload.buildSource("script", "file", "upload")))
+        String location = mockMvc.perform(Payload.PROGRAMS_POST.getRequest(Payload.buildProgram("script", "file", "upload")))
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
                 .getHeader("Location");
         int index = location.lastIndexOf("/");
         String id = location.substring(index + 1);
-        sources(id);
+        programs(id);
         delete(id);
     }
 
     private void delete(String id) throws Exception {
-        mockMvc.perform(Payload.SOURCES_DELETE.getRequest(id))
+        mockMvc.perform(Payload.PROGRAMS_DELETE.getRequest(id))
                 .andExpect(status().isNoContent());
     }
 
-    private void sources(String id) throws Exception {
-        mockMvc.perform(Payload.SOURCES_GET.getRequest(id))
-                .andExpect(jsonPath("$.script").value("script"))
+    private void programs(String id) throws Exception {
+        mockMvc.perform(Payload.PROGRAMS_GET.getRequest(id))
+                .andExpect(jsonPath("$.code").value("script"))
                 .andExpect(jsonPath("$.file").value("file"))
                 .andExpect(jsonPath("$.folder").value("upload"))
                 .andExpect(jsonPath("$.location").value(configuration.getLocation()))

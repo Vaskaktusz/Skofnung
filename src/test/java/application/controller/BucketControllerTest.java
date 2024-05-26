@@ -12,10 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BucketControllerTest extends BaseTest {
     @Test
     void buckets() throws Exception {
-        mockMvc.perform(Payload.BUCKETS_PUT.getRequest(Payload.buildSource("script", "file", "upload")))
+        mockMvc.perform(Payload.BUCKETS_PUT.getRequest(Payload.buildProgram("code", "file", "upload")))
                 .andExpect(status().isOk());
         mockMvc.perform(Payload.BUCKETS_SEARCH.getRequest(Payload.buildBucket("file", "upload")))
-                .andExpect(jsonPath("$.file._embedded").value("script"))
+                .andExpect(jsonPath("$.file._embedded").value("code"))
                 .andExpect(status().isOk());
         mockMvc.perform(Payload.BUCKETS_DELETE.getRequest(Payload.buildBucket("file", "upload")))
                 .andExpect(status().isOk());
@@ -23,9 +23,9 @@ class BucketControllerTest extends BaseTest {
 
     @Test
     void deploy() throws Exception {
-        String name = new DeployControllerTest(mockMvc).deploy("echo script");
+        String name = new DeployControllerTest(mockMvc).deploy("echo TEST");
         mockMvc.perform(Payload.BUCKETS_SEARCH.getRequest(Payload.buildBucket(name, "logger")))
-                .andExpect(jsonPath(String.format("$.%s._embedded", name)).value("script\n"))
+                .andExpect(jsonPath(String.format("$.%s._embedded", name)).value("TEST\n"))
                 .andExpect(status().isOk());
         mockMvc.perform(Payload.BUCKETS_DELETE.getRequest(Payload.buildBucket(name, "deploy")))
                 .andExpect(status().isOk());

@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.entity.database.Source;
+import application.entity.database.Script;
 import application.repository.DeployRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public final class DeployController {
     private final DeployRepository deployRepository;
 
     @PutMapping("/deploy")
-    public String deploy(@RequestBody @Valid Source source) {
-        return deployRepository.deploy(source);
+    public String deploy(@RequestBody @Valid Script script) {
+        return deployRepository.deploy(script);
     }
 }
