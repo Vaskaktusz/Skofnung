@@ -12,8 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class DeployControllerTest {
     private final MockMvc mockMvc;
 
-    String deploy(String script) throws Exception {
-        return mockMvc.perform(Payload.DEPLOY.getRequest(Payload.buildSource(script, null, null)))
+    String deploy(String code) throws Exception {
+        return mockMvc.perform(Payload.DEPLOY.getRequest(Payload.buildProgram(code, null, null)))
                 .andExpect(jsonPath("$").value(matchesPattern("[a-z0-9]{32}")))
                 .andExpect(status().isOk())
                 .andReturn()

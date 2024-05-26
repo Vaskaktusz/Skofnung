@@ -2,7 +2,7 @@ package application.util;
 
 import application.entity.database.Address;
 import application.entity.database.Bucket;
-import application.entity.database.Source;
+import application.entity.database.Program;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -39,21 +39,21 @@ public enum Payload {
             HttpMethod.POST,
             "/health"
     ),
-    REGISTER(
-            HttpMethod.POST,
-            "/register"
+    MEMBERS_PUT(
+            HttpMethod.PUT,
+            "/members"
     ),
-    SOURCES_DELETE(
+    PROGRAMS_DELETE(
             HttpMethod.DELETE,
-            "/sources"
+            "/programs"
     ),
-    SOURCES_GET(
+    PROGRAMS_GET(
             HttpMethod.GET,
-            "/sources"
+            "/programs"
     ),
-    SOURCES_POST(
+    PROGRAMS_POST(
             HttpMethod.POST,
-            "/sources"
+            "/programs"
     ),
     SYSTEM(
             HttpMethod.POST,
@@ -81,13 +81,13 @@ public enum Payload {
         return bucket;
     }
 
-    public static Source buildSource(String script, String file, String folder) {
-        Source source = new Source();
-        source.setScript(script);
-        source.setFile(file);
-        source.setFolder(folder);
-        prepareAddress(source);
-        return source;
+    public static Program buildProgram(String code, String file, String folder) {
+        Program program = new Program();
+        program.setCode(code);
+        program.setFile(file);
+        program.setFolder(folder);
+        prepareAddress(program);
+        return program;
     }
 
     public MockHttpServletRequestBuilder getRequest(Object content) throws JsonProcessingException {

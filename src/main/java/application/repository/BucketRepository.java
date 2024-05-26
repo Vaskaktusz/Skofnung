@@ -1,7 +1,7 @@
 package application.repository;
 
 import application.entity.database.Bucket;
-import application.entity.database.Source;
+import application.entity.database.Program;
 import application.entity.metadata.Files;
 import application.service.RestTemplate;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,8 @@ public class BucketRepository {
         restTemplate.httpDelete(bucket, contextPath(bucket.getFolder(), bucket.getFile()));
     }
 
-    public void save(Source source) {
-        restTemplate.httpPut(source, contextPath(source.getFolder(), source.getFile()));
+    public void save(Program program) {
+        restTemplate.httpPut(program, contextPath(program.getFolder(), program.getFile()));
     }
 
     public Files search(Bucket bucket) {

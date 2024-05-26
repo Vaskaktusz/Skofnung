@@ -1,7 +1,7 @@
 package application.controller;
 
-import application.entity.database.Script;
-import application.repository.DeployRepository;
+import application.entity.security.Member;
+import application.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public final class DeployController {
-    private final DeployRepository deployRepository;
+public final class MemberController {
+    private final MemberService memberService;
 
-    @PutMapping("/deploy")
-    public String deploy(@RequestBody @Valid Script script) {
-        return deployRepository.deploy(script);
+    @PutMapping("/members")
+    public void save(@RequestBody @Valid Member member) {
+        memberService.save(member);
     }
 }
