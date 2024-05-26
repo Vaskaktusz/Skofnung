@@ -1,6 +1,6 @@
 package application.util;
 
-import application.controller.UserDetailsControllerTest;
+import application.controller.MemberControllerTest;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +23,7 @@ public class BaseTest {
         Payload.setHttpHeaders(httpHeaders);
         String username = "admin";
         String password = "admin";
-        new UserDetailsControllerTest(mockMvc).save(username, "{noop}".concat(password));
+        new MemberControllerTest(mockMvc).save(username, "{noop}".concat(password));
         httpHeaders.setBasicAuth(username, password);
     }
 }

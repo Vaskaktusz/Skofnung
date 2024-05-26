@@ -39,9 +39,9 @@ public enum Payload {
             HttpMethod.POST,
             "/health"
     ),
-    REGISTER(
-            HttpMethod.POST,
-            "/register"
+    MEMBERS_PUT(
+            HttpMethod.PUT,
+            "/members"
     ),
     SOURCES_DELETE(
             HttpMethod.DELETE,
