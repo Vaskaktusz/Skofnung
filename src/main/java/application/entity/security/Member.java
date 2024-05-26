@@ -1,5 +1,7 @@
 package application.entity.security;
 
+import application.converter.DatabaseEncryptor;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,6 +22,7 @@ public class Member implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+    @Convert(converter = DatabaseEncryptor.class)
     @NotBlank
     private String password;
     @Id
