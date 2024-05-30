@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public final class DeployController {
+final class DeployController {
     private final DeployRepository deployRepository;
 
     @PutMapping("/deploy")
-    public String deploy(@RequestBody @Valid Script script) {
+    String deploy(@RequestBody @Valid Script script) {
         return deployRepository.deploy(script);
     }
 }
