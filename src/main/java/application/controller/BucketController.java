@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public final class BucketController {
+final class BucketController {
     private final BucketRepository bucketRepository;
 
     @DeleteMapping("/buckets")
-    public void delete(@RequestBody @Valid Bucket bucket) {
+    void delete(@RequestBody @Valid Bucket bucket) {
         bucketRepository.delete(bucket);
     }
 
     @PutMapping("/buckets")
-    public void save(@RequestBody @Valid Program bucket) {
+    void save(@RequestBody @Valid Program bucket) {
         bucketRepository.save(bucket);
     }
 
     @PostMapping("/buckets/search")
-    public Files search(@RequestBody @Valid Bucket bucket) {
+    Files search(@RequestBody @Valid Bucket bucket) {
         return bucketRepository.search(bucket);
     }
 }

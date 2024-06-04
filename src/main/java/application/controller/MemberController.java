@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public final class MemberController {
+final class MemberController {
     private final MemberService memberService;
 
     @PutMapping("/members")
-    public void save(@RequestBody @Valid Member member) {
+    void save(@RequestBody @Valid Member member) {
         memberService.save(member);
     }
 }

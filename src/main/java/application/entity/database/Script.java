@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Script extends Address {
+public final class Script extends Address {
     private String code;
 }

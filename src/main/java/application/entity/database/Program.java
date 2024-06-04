@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Program extends Bucket {
+public final class Program extends Bucket {
     private String code;
 }
