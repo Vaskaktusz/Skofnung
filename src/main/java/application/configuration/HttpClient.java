@@ -14,15 +14,14 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestClientException;
 
 import java.security.GeneralSecurityException;
-import java.util.Collections;
 import java.util.List;
 
 @Configuration
 public class HttpClient {
     public List<HttpMessageConverter<Object>> getMessageConverters() {
         AbstractHttpMessageConverter<Object> httpMessageConverter = new MappingJackson2HttpMessageConverter();
-        httpMessageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        return Collections.singletonList(httpMessageConverter);
+        httpMessageConverter.setSupportedMediaTypes(List.of(MediaType.ALL));
+        return List.of(httpMessageConverter);
     }
 
     public ClientHttpRequestFactory getRequestFactory() {
